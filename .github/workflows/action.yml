@@ -1,4 +1,6 @@
-name: CI
+name: Test and Deploy Static Website
+
+run-name: "${{ github.actor }} runs static website pipeline"
 
 on:
   push:
@@ -9,8 +11,20 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
 jobs:
-  unit-test:
+  test-and-build:
+    name: Unit Test and Prepare Website
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +35,50 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "22"
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run unit tests
         run: npm test
+
+      - name: Configure GitHub Pages
+        if: github.event_name == 'push'
+        uses: actions/configure-pages@v6
+
+      - name: Prepare static website
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p dist
+          cp index.html dist/
+          cp -r css dist/css
+          cp -r js dist/js
+
+          if [ -d assets ]; then
+            cp -r assets dist/assets
+          fi
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.event_name == 'push'
+
+    needs:
+      - test-and-build
+
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v5
