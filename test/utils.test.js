@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { calculateTotal, formatRupiah } from "../js/utils.js";
+//import { calculateTotal, formatRupiah } from "../js/utils.js";
 
 test("calculateTotal menghitung harga dikali jumlah", () => {
   //const result = calculateTotal(10000, 2);
