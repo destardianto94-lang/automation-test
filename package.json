@@ -1,13 +1,13 @@
 {
   "name": "push-automation",
   "version": "1.0.0",
-  "description": "test push ke github",
-  "type":"module",
+  "description": "Sistem otomatisasi push",
+  "type": "module",
   "scripts": {
     "test": "node --test"
   },
   "engines": {
     "node": ">=22"
   },
-  "author": "desta"
+  "author": "Anggi Juhniawan"
 }
