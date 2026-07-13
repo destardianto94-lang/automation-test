@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Automation HTML CSS JS</title>
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Automation HTML, CSS, dan JavaScript</h1>
+
+      <p>
+        Project ini memiliki unit test, GitHub Actions, dan deployment otomatis.
+      </p>
+
+      <section class="calculator">
+        <h2>Hitung desta Belanja</h2>
+
+        <label for="price">Harga</label>
+        <input id="price" type="number" value="10000" min="0" />
+
+        <label for="quantity">Jumlah</label>
+        <input id="quantity" type="number" value="2" min="1" />
+
+        <button id="calculate-button" type="button">Hitung</button>
+
+        <p id="result">Total: Rp0</p>
+      </section>
+    </main>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
