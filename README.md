@@ -9,7 +9,7 @@ Project automation menggunakan:
 - Github Actions
 - Github Pages
 
-##M Menjalankan unit test
+## Menjalankan unit test
 
 ```bash
 npm install
